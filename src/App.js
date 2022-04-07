@@ -28,6 +28,10 @@ function App() {
     }, 1000)
   }
 
+  const handleKeyDown = (event) => {
+    console.log(event);
+  }
+
   return (
     <div className="App">
       <div className="section">
@@ -36,7 +40,7 @@ function App() {
         </div>
       </div>
       <div className="control is-expanded section">
-        <input type="text" className="input" />
+        <input type="text" className="input" onKeyDown={handleKeyDown} />
       </div>
       <div className="section">
         <button className="button is-info is-fullwidth" onClick={start}>
@@ -48,12 +52,15 @@ function App() {
           <div className="card-content">
             <div className="content">
               {words.map((word, i) => (
-                <>
-                <span>
-                  {word}
-                </span>
-                <span>{' '}</span>
-                </>
+                <span key={i}>
+                  <span>
+                    {word.split('').map((char, idx) => (
+                      <span key={idx}>{char}</span>
+                    ))}
+                  </span>
+                  <span> </span>
+                <span/>
+              </span>
               ))}
             </div>
           </div>
