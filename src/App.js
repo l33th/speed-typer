@@ -7,6 +7,8 @@ const SECONDS = 60;
 function App() {
   const [words, setWords] = useState([]);
   const [countDown, setCountDown] = useState(SECONDS);
+  const [currentInput, setCurrentInput] = useState('');
+  const [currentWordIndex, setCurrentWordIndex] = useState(0)
 
   useEffect(() => {
     setWords(generateWords())
@@ -28,8 +30,19 @@ function App() {
     }, 1000)
   }
 
-  const handleKeyDown = (event) => {
-    console.log(event);
+  const handleKeyDown = ({keyCode}) => {
+    // space bar
+    if(keyCode === 32) {
+      checkMatch()
+      setCurrentInput("")
+      setCurrentWordIndex(currentWordIndex + 1)
+    }
+  }
+
+  const checkMatch = () => {
+    const wordToCompare = words[currentWordIndex];
+    const doesItMatch = wordToCompare === currentInput.trim();
+    console.log({doesItMatch});
   }
 
   return (
@@ -40,7 +53,7 @@ function App() {
         </div>
       </div>
       <div className="control is-expanded section">
-        <input type="text" className="input" onKeyDown={handleKeyDown} />
+        <input type="text" className="input" onKeyDown={handleKeyDown} value={currentInput} onChange={(e) => setCurrentInput(e.target.value)} />
       </div>
       <div className="section">
         <button className="button is-info is-fullwidth" onClick={start}>
