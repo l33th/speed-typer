@@ -79,14 +79,14 @@ function App() {
           </div>
         </div>
         <div className="section">
-          <div className="columns">
+          <div className="columns has-text-centered">
             <div className="column">
               <p className="is-size-5">Words per minute</p>
               <p className="has-text-primary is-size-1">
                 {42}
               </p>
             </div>
-            <div className="column">
+            <div className="column has-text-centered">
               <div className="is-size-5">Accuracy : </div>
               <p className="has-text-info is-size-1">
                 "100%"
