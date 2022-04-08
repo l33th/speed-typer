@@ -8,7 +8,10 @@ function App() {
   const [words, setWords] = useState([]);
   const [countDown, setCountDown] = useState(SECONDS);
   const [currentInput, setCurrentInput] = useState('');
-  const [currentWordIndex, setCurrentWordIndex] = useState(0)
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [correct, setCorrect] = useState(0);
+  const [incorrect, setIncorrect] = useState(0);
+  const [status, setStatus] = useState('waiting');
 
   useEffect(() => {
     setWords(generateWords())
@@ -42,7 +45,11 @@ function App() {
   const checkMatch = () => {
     const wordToCompare = words[currentWordIndex];
     const doesItMatch = wordToCompare === currentInput.trim();
-    console.log({doesItMatch});
+    if(doesItMatch) {
+      setCorrect(correct + 1)
+    } else {
+      setIncorrect(incorrect + 1)
+    }
   }
 
   return (
@@ -53,14 +60,14 @@ function App() {
         </div>
       </div>
       <div className="control is-expanded section">
-        <input type="text" className="input" onKeyDown={handleKeyDown} value={currentInput} onChange={(e) => setCurrentInput(e.target.value)} />
+        <input disabled={status === 'started'} type="text" className="input" onKeyDown={handleKeyDown} value={currentInput} onChange={(e) => setCurrentInput(e.target.value)} />
       </div>
       <div className="section">
         <button className="button is-info is-fullwidth" onClick={start}>
           Start
         </button>
       </div>
-      <div className="section">
+      {status === 'started' && (
         <div className="card">
           <div className="card-content">
             <div className="content">
@@ -78,23 +85,27 @@ function App() {
             </div>
           </div>
         </div>
+      )}
+      {status === 'finished' && (
         <div className="section">
-          <div className="columns has-text-centered">
-            <div className="column">
-              <p className="is-size-5">Words per minute</p>
-              <p className="has-text-primary is-size-1">
-                {42}
-              </p>
-            </div>
-            <div className="column has-text-centered">
-              <div className="is-size-5">Accuracy : </div>
-              <p className="has-text-info is-size-1">
-                "100%"
-              </p>
+          <div className="section">
+            <div className="columns has-text-centered">
+              <div className="column">
+                <p className="is-size-5">Words per minute</p>
+                <p className="has-text-primary is-size-1">
+                  {correct}
+                </p>
+              </div>
+              <div className="column has-text-centered">
+                <div className="is-size-5">Accuracy : </div>
+                <p className="has-text-info is-size-1">
+                  {Math.round((correct / (correct + incorrect))) * 100} %
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
