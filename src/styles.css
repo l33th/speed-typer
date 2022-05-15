@@ -1,0 +1,5 @@
+.App {
+	background: url('./img/bg.jpg');
+	background-repeat: none;
+	background-size: cover;
+}

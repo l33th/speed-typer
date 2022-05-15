@@ -1,5 +1,8 @@
 import {useState, useEffect, useRef} from 'react'
 import randomWords from 'random-words'
+import GithubCorner from 'react-github-corner';
+import './styles.css';
+
 const NUMB_OF_WORDS = 200
 const SECONDS = 60
 
@@ -102,6 +105,7 @@ function App() {
 
   return (
     <div className="App">
+      <GithubCorner href='https://github.com/l33th'/>
       <div className="section">
         <div className="is-size-1 has-text-centered has-text-primary">
           <h2>{countDown}</h2>
