@@ -106,6 +106,7 @@ function App() {
   return (
     <div className="App">
       <GithubCorner href='https://github.com/l33th'/>
+      <h1 className="is-size-1 has-text-centered has-text-secondary">Speed Typer</h1>
       <div className="section">
         <div className="is-size-1 has-text-centered has-text-primary">
           <h2>{countDown}</h2>
